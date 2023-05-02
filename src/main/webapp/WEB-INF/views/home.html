@@ -1,0 +1,241 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="http://code.jquery.com/jquery-latest.js">
+        var mHtml = $("html");
+        var page = 1;
+
+        mHtml.animate({scrollTop : 0},10);
+
+        $(window).on("wheel", function(e) {
+            if(mHtml.is(":animated")) return;
+            if(e.originalEvent.deltaY > 0) {
+                if(page == 4) return;
+                page++;
+            } else if(e.originalEvent.deltaY < 0) {
+                if(page == 1) return;
+                page--;
+            }
+            var posTop =(page-1) * $(window).height();
+            mHtml.animate({scrollTop : posTop});
+        })
+    </script>
+    <style>
+        :root {
+            --background-color: black;
+            --bodybackground-color: white;
+            --accent-color: orange;
+            --text-color: orange;
+            --icons-color: orange;
+        }
+
+        html {
+            overflow: hidden;
+        }
+
+        html, body {
+            display: block;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--background-color);
+            padding: 15px 18px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            font-family: Arial;
+        }
+
+        .navbar_logo {
+            margin-left: 5rem;
+        }
+
+        .navbar_logo i {
+            color: var(--accent-color);
+            padding-left: 0;
+        }
+
+        body {
+            margin: 0;
+            background-color: var(--bodybackground-color);
+        }
+
+        .header {
+            position: sticky;
+            top: 0;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--text-color);
+        }
+
+        .navbar_menu {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding-left: 0;
+        }
+
+        .navbar_menu li {
+            padding: 8px 30px;
+            margin-right: 1rem;
+        }
+
+        .navbar_icons {
+            list-style: none;
+            display: flex;
+            color: var(--icons-color);
+            margin: 0;
+            margin-right: 3rem!important;
+            padding-left: 0;
+        }
+
+        .navbar_icons li {
+            padding: 8px 12px;
+            margin: 0;
+        }
+
+        .navbar_menu li:hover{
+            background-color: var(--accent-color);
+            border-radius: 3px;
+        }
+
+        .navbar_menu li:hover a {
+            color: var(--background-color);
+        }
+
+        .login {
+            background-color: var(--accent-color);
+            border-radius: 3px;
+        }
+
+        .login a {
+            color: var(--background-color);
+        }
+
+        .login:hover {
+            background-color: var(--background-color)!important;
+            color: var(--accent-color)!important;
+        }
+
+        .login:hover a {
+            color: var(--accent-color)!important;
+        }
+
+        .main {
+            width: 100%;
+            background-color: white;
+            margin: 0;
+        }
+
+        .jumbo {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            color: #dddddd;
+            margin-bottom: auto!important;
+            font-family: "Palatino Linotype";
+            height: 100vh;
+            background-size: cover;
+            background-position: center;
+            background-image: url("../../resources/img/cinema.jpg");
+        }
+
+        .jb1 {
+            font-size: 2rem;
+            margin: 4rem;
+            margin-bottom: 0!important;
+        }
+
+        .jb2 {
+            font-size: 1.2rem;
+            margin: 4rem;
+            margin-top: 0!important;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .contents {
+            display: flex;
+            flex-direction: column;
+            margin-left: 2rem;
+            margin-right: 2rem;
+        }
+
+        @media screen and (max-width: 900px) {
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+                margin: 0;
+            }
+            .navbar_logo {
+                padding: 1rem;
+                width: 100%;
+                text-align: center;
+                margin: 0;
+            }
+            .navbar_menu {
+                flex-direction: column;
+                align-items: center;
+                width: 100%;
+            }
+            .navbar_menu li {
+                width: 100%;
+                text-align: center;
+            }
+            .navbar_icons {
+                justify-content: center;
+                margin-top: 2rem;
+                width: 100%;
+            }
+        }
+    </style>
+    <script></script>
+</head>
+<div class="container">
+    <div class="header">
+        <nav class="navbar">
+            <div class="navbar_logo">
+                <i class="fa-solid fa-film fa-lg"></i>
+                <a>Movie in Memory</a>
+            </div>
+            <ul class="navbar_menu">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">FAQ</a></li>
+                <li class="login"><a href="#">Login</a></li>
+            </ul>
+
+            <ul class="navbar_icons">
+                <li><i class="fab fa-google fa-lg"></i></li>
+                <li><i class="fa-brands fa-github fa-lg"></i></li>
+            </ul>
+        </nav>
+    </div>
+    <div class="main">
+        <div #id="section1" class="contents section">
+            <div class="jumbo">
+                <div class="jb1">
+                    <h1>Movies in your memory</h1>
+                </div>
+                <div class="jb2">
+                    <h2>Share your story by leaving your feelings after watching the movie.</h2>
+                    <h2>Movie in Memory can be your archive and a valuable list of recommendations for your family and friends.</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer"></div>
+</div>
+</body>
+</html>
