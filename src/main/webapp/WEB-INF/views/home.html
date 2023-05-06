@@ -4,25 +4,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script src="http://code.jquery.com/jquery-latest.js">
-        var mHtml = $("html");
-        var page = 1;
-
-        mHtml.animate({scrollTop : 0},10);
-
-        $(window).on("wheel", function(e) {
-            if(mHtml.is(":animated")) return;
-            if(e.originalEvent.deltaY > 0) {
-                if(page == 4) return;
-                page++;
-            } else if(e.originalEvent.deltaY < 0) {
-                if(page == 1) return;
-                page--;
-            }
-            var posTop =(page-1) * $(window).height();
-            mHtml.animate({scrollTop : posTop});
-        })
-    </script>
     <style>
         :root {
             --background-color: black;
@@ -31,16 +12,15 @@
             --text-color: orange;
             --icons-color: orange;
         }
-
-        html {
-            overflow: hidden;
-        }
-
         html, body {
             display: block;
             width: 100%;
             height: 100%;
             margin: 0;
+        }
+        .header {
+            position: sticky;
+            top: 0;
         }
         .navbar {
             display: flex;
@@ -50,130 +30,210 @@
             padding: 15px 18px;
             font-size: 1.2rem;
             font-weight: bold;
-            font-family: Arial;
+            font-family: sans-serif;
         }
-
         .navbar_logo {
             margin-left: 5rem;
         }
-
         .navbar_logo i {
             color: var(--accent-color);
             padding-left: 0;
         }
-
-        body {
-            margin: 0;
-            background-color: var(--bodybackground-color);
-        }
-
-        .header {
-            position: sticky;
-            top: 0;
-        }
-
         a {
             text-decoration: none;
             color: var(--text-color);
         }
-
         .navbar_menu {
             list-style: none;
             display: flex;
             margin: 0;
             padding-left: 0;
         }
-
         .navbar_menu li {
             padding: 8px 30px;
             margin-right: 1rem;
         }
-
         .navbar_icons {
             list-style: none;
             display: flex;
             color: var(--icons-color);
             margin: 0;
-            margin-right: 3rem!important;
             padding-left: 0;
         }
-
         .navbar_icons li {
-            padding: 8px 12px;
+            padding: 8px 20px;
             margin: 0;
         }
-
         .navbar_menu li:hover{
             background-color: var(--accent-color);
             border-radius: 3px;
         }
-
         .navbar_menu li:hover a {
             color: var(--background-color);
         }
-
-        .login {
-            background-color: var(--accent-color);
-            border-radius: 3px;
-        }
-
-        .login a {
-            color: var(--background-color);
-        }
-
-        .login:hover {
-            background-color: var(--background-color)!important;
-            color: var(--accent-color)!important;
-        }
-
-        .login:hover a {
-            color: var(--accent-color)!important;
-        }
-
-        .main {
-            width: 100%;
-            background-color: white;
-            margin: 0;
-        }
-
-        .jumbo {
+        .container {
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            color: #dddddd;
-            margin-bottom: auto!important;
-            font-family: "Palatino Linotype";
-            height: 100vh;
+            margin: 0;
+            width: auto;
+        }
+        .section1 {
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
             background-size: cover;
             background-position: center;
             background-image: url("../../resources/img/cinema.jpg");
         }
-
-        .jb1 {
+        .jumbo {
+            color: white;
+            font-family: sans-serif;
+            text-align: center;
+            text-shadow: 4px 4px 4px black;
+            margin: 2rem;
+            margin-top: 10%!important;
+        }
+        .jumbo h1 {
+            font-size: 5rem;
+        }
+        .jumbo h2 {
+            font-size: 1.8rem;
+        }
+        .section2 {
+            display: flex;
+            justify-content: space-evenly;
+            flex-wrap: wrap;
+            background-color: white;
+            padding: 2rem;
+            margin-left: auto;
+            margin-right: auto;
+            font-family: Arial;
+            box-shadow: 0 0 30px black inset;
+        }
+        .section2 > h1 {
+            width: 100%;
+            margin: 3rem;
+        }
+        .main {
+            width: 100%;
+            background-color: white;
+            margin: 0;
+            position: relative;
+            z-index: -1;
+        }
+        .sell {
+            position: relative;
+            min-width: 30%;
+            min-height: 500px;
+            resize: both;
+            box-shadow: 3px 3px 10px black;
+            margin: 1rem;
+            border-radius: 1rem;
+        }
+        .sell h1, h3 {
+            margin-left: 1rem;
+        }
+        .sell p {
+            margin-left: 1rem;
+            margin-top: 1.5rem;
+            font-weight: bold;
+            color: darkslategray;
+        }
+        .sell h3 {
+            color: darkslategray;
+            font-weight: unset;
+        }
+        .overlays-wrap {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        .overlays {
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.4);
+            opacity: 0;
+            margin-top: 100%;
+        }
+        #archive {
+            background-image: url("../../resources/img/archive.jpg");
+            background-size: cover;
+            background-position: center;
+            width: 100%;
+            min-height: 300px;
+            position: absolute;
+            bottom: 0;
+            border-radius: inherit;
+            border-top-left-radius: 0!important;
+            border-top-right-radius: 0!important;
+        }
+        #friends {
+            background-image: url("../../resources/img/friends.jpg");
+            background-size: cover;
+            background-position: center;
+            width: 100%;
+            min-height: 300px;
+            position: absolute;
+            bottom: 0;
+            border-radius: inherit;
+            border-top-left-radius: 0!important;
+            border-top-right-radius: 0!important;
+        }
+        .inform {
+            background-color: black;
+            color: white;
+            padding: 2rem;
+        }
+        .hook {
+            font-size: 3rem;
+            font-family: "Comic Sans MS";
+        }
+        .disc {
+            margin-left: 10%;
+        }
+        .disc h3 {
+            margin-left: 0;
+        }
+        .inform span {
+            color: orange;
+        }
+        .logo {
+            margin-left: 10%;
+        }
+        .section4 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            padding-top: 2rem;
+        }
+        .event {
+            background-image: url("../../resources/img/event.jpg");
+            background-size: cover;
+            background-position: center;
+            height: 50vh;
+        }
+        .news {
+            padding: 3rem;
+            margin-left: 10%;
+        }
+        .news h1 {
+            margin-bottom: 3rem;
+        }
+        .news h3, p {
+            margin-left: 0;
+        }
+        .news i {
             font-size: 2rem;
-            margin: 4rem;
-            margin-bottom: 0!important;
         }
-
-        .jb2 {
-            font-size: 1.2rem;
-            margin: 4rem;
-            margin-top: 0!important;
-        }
-
-        .container {
+        .find {
+            margin: 2rem;
             display: flex;
-            flex-direction: column;
+            align-items: center;
+            margin-left: 0!important;
         }
 
-        .contents {
-            display: flex;
-            flex-direction: column;
-            margin-left: 2rem;
-            margin-right: 2rem;
-        }
 
-        @media screen and (max-width: 900px) {
+        @media screen and (min-width: 768px) and (max-width: 1023px){
             .navbar {
                 flex-direction: column;
                 align-items: flex-start;
@@ -181,61 +241,172 @@
             }
             .navbar_logo {
                 padding: 1rem;
-                width: 100%;
                 text-align: center;
-                margin: 0;
+                margin-left: auto;
+                margin-right: auto;
+                width: 100%;
             }
             .navbar_menu {
-                flex-direction: column;
-                align-items: center;
+                display: flex;
+                flex-direction: row;
                 width: 100%;
+                justify-content: space-evenly;
+                list-style: none;
+                padding-left: 0;
             }
             .navbar_menu li {
-                width: 100%;
-                text-align: center;
+                margin: 0;
             }
             .navbar_icons {
                 justify-content: center;
-                margin-top: 2rem;
+                margin-top: 1rem;
                 width: 100%;
+            }
+            .section1 {
+                justify-content: center;
+            }
+            .jumbo {
+                color: white;
+                font-family: sans-serif;
+                text-align: center;
+                text-shadow: 2px 2px 3px black;
+                margin: 2rem;
+                margin-top: 0!important;
+            }
+            .jumbo h1 {
+                font-size: 4rem;
+            }
+            .jumbo h2 {
+                font-size: 1.3rem;
+            }
+        }
+
+        @media screen and (max-width: 767px){
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+                margin: 0;
+                font-size: 1rem;
+            }
+            .navbar_logo {
+                padding: 1rem;
+                text-align: center;
+                margin-left: auto;
+                margin-right: auto;
+                font-size: 1rem;
+            }
+            .navbar_menu {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                justify-content: space-evenly;
+                list-style: none;
+                padding-left: 0;
+            }
+            .navbar_menu li {
+                text-align: center;
+                margin: 2px;
+            }
+            .navbar_icons {
+                justify-content: center;
+                margin-top: 1rem;
+                width: 100%;
+            }
+            .section1 {
+                justify-content: center;
+            }
+            .jumbo {
+                color: white;
+                font-family: "Palatino Linotype";
+                text-align: center;
+                text-shadow: 2px 2px 3px black;
+                margin: 2rem;
+                margin-top: 30%!important;
+            }
+            .jumbo h1 {
+                font-size: 2rem;
+            }
+            .jumbo h2 {
+                font-size: 1rem;
             }
         }
     </style>
-    <script></script>
 </head>
-<div class="container">
-    <div class="header">
-        <nav class="navbar">
-            <div class="navbar_logo">
-                <i class="fa-solid fa-film fa-lg"></i>
-                <a>Movie in Memory</a>
+<body>
+    <div class="container">
+        <div class="header">
+            <nav class="navbar">
+                <div class="navbar_logo">
+                    <img src="../../resources/img/logo.png" height="50" width="100">
+                </div>
+                <ul class="navbar_menu">
+                    <li><a href="#">홈</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">로그인</a></li>
+                </ul>
+                <ul class="navbar_icons">
+                    <li><i class="fab fa-google fa-lg"></i></li>
+                    <li><i class="fa-brands fa-github fa-lg"></i></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="main">
+            <div class="section1">
+                <div class="jumbo">
+                    <h1>당신의 기억 속 영화들</h1>
+                    <h2>영화에 대한 감상을 남기고 당신의 이야기를 공유하세요.</h2>
+                    <h2>MOVA는 당신의 친구와 가족에게 최고의 영화 아카이브와 추천 리스트가 될 수 있습니다.</h2>
+                </div>
             </div>
-            <ul class="navbar_menu">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">FAQ</a></li>
-                <li class="login"><a href="#">Login</a></li>
-            </ul>
-
-            <ul class="navbar_icons">
-                <li><i class="fab fa-google fa-lg"></i></li>
-                <li><i class="fa-brands fa-github fa-lg"></i></li>
-            </ul>
-        </nav>
-    </div>
-    <div class="main">
-        <div #id="section1" class="contents section">
-            <div class="jumbo">
-                <div class="jb1">
-                    <h1>Movies in your memory</h1>
+            <div class="section2">
+                <h1>Mova가 지원하는 서비스.</h1>
+                <div class="sell">
+                    <div class="overlays-wrap">
+                        <div class="overlays"></div>
+                    </div>
+                    <p>Mova Story</p>
+                    <h1>스토리를 공유하세요.</h1>
+                    <h3>친구와 가족에게 들려주는 이야기.</h3>
+                    <div id="archive"></div>
                 </div>
-                <div class="jb2">
-                    <h2>Share your story by leaving your feelings after watching the movie.</h2>
-                    <h2>Movie in Memory can be your archive and a valuable list of recommendations for your family and friends.</h2>
+                <div class="sell">
+                    <div class="overlays-wrap">
+                        <div class="overlays"></div>
+                    </div>
+                    <p>Mova Mate</p>
+                    <h1>영화 메이트를 찾으세요.</h1>
+                    <h3>Mova를 통해 만나는 새로운 인연.</h3>
+                    <div id="friends"></div>
                 </div>
+            </div>
+            <div class="section3">
+                <div class="inform">
+                    <div class="logo">
+                        <img src="../../resources/img/logo.png" width="400" height="300">
+                    </div>
+                    <div class="disc">
+                        <h1 class="hook">야, 모바?</h1>
+                        <h1>MOVA는 평생의 영화 인생을 책임질 <span>MOV</span>ie <span>A</span>rchive가 될 것입니다.</h1>
+                        <h3>영화를 보고 난 후 MOVA에 감상을 기록하세요.</h3>
+                        <h3>당신의 스토리를 친구와 공유할 수 있습니다.</h3>
+                        <h3>취향이 비슷한 사람들과 영화 메이트를 이루세요.</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="section4">
+                <div class="news">
+                    <h1>메이트 멤버십</h1>
+                    <h2>취향이 비슷한 사람들과 메이트를 이루세요.</h2>
+                    <h2>매달 메이트와 스토리를 공유하면 혜택이.</h2>
+                    <p>혜택: 1년마다 CGV, 롯데시네마, 메가박스 무료 영화 티켓 지급</p>
+                    <div class="find">
+                        <i class="fa-solid fa-user-group"></i>
+                        <h2>메이트 찾으러 가기.</h2>
+                    </div>
+                </div>
+                <div class="event"></div>
             </div>
         </div>
     </div>
-    <div class="footer"></div>
-</div>
 </body>
 </html>
